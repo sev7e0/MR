@@ -1,6 +1,4 @@
-package com.sev7e0.MR;
-
-import java.net.URI;
+package com.sev7e0.MR.wordcount;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -11,7 +9,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class ParititionerApp {
+public class WordCount {
 	/**
 	 * @Title: main @Description: 定义的driver：封装了mapreduce作业的所有信息 @param @param
 	 * args @param @throws Exception @return void @throws
@@ -37,19 +35,15 @@ public class ParititionerApp {
 		// 创建任务
 		Job job = Job.getInstance(conf, "wordcountDemo");
 		// 设置job的主类
-		job.setJarByClass(ParititionerApp.class); // 主类
+		job.setJarByClass(WordCount.class); // 主类
 
 		// 设置作业的输入路径
 		FileInputFormat.setInputPaths(job, new Path(args[0]));
 
 		//设置map的相关参数
-		job.setMapperClass(ParititionerAppMapper.class);
+		job.setMapperClass(WordCountMapper.class);
 		job.setMapOutputKeyClass(Text.class);
 		job.setMapOutputValueClass(LongWritable.class);
-		
-		//设置job的partitioner
-		job.setPartitionerClass(MyPartitioner.class);
-		job.setNumReduceTasks(4);
 		
 		//设置reduce相关参数
 		job.setReducerClass(WordCountReduce.class);
@@ -59,6 +53,7 @@ public class ParititionerApp {
 		//设置作业的输出路径
 		FileOutputFormat.setOutputPath(job, out);
 
+		job.setNumReduceTasks(2);
 
 		
 		System.exit(job.waitForCompletion(true) ? 0 : 1);

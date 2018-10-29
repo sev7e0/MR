@@ -1,6 +1,4 @@
-package com.sev7e0.MR;
-
-import java.net.URI;
+package com.sev7e0.MR.wordcount;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -11,7 +9,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class WordCount {
+public class WordCount2 {
 	/**
 	 * @Title: main @Description: 定义的driver：封装了mapreduce作业的所有信息 @param @param
 	 * args @param @throws Exception @return void @throws
@@ -37,7 +35,7 @@ public class WordCount {
 		// 创建任务
 		Job job = Job.getInstance(conf, "wordcountDemo");
 		// 设置job的主类
-		job.setJarByClass(WordCount.class); // 主类
+		job.setJarByClass(WordCount2.class); // 主类
 
 		// 设置作业的输入路径
 		FileInputFormat.setInputPaths(job, new Path(args[0]));

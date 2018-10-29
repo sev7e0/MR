@@ -1,4 +1,4 @@
-package com.sev7e0.MR;
+package com.sev7e0.MR.wordcount;
 
 import java.io.IOException;
 
